@@ -1,0 +1,64 @@
+r2
+
+conf t
+router rip 
+ver 2
+net 23.0.0.0
+net 12.0.0.0
+no au
+pass s4/0
+red bgp 2 met 15
+-----------------
+
+r3
+wr
+conf t
+router rip 
+ver 2
+net 34.0.0.0
+net 23.0.0.0
+net 3.0.0.0
+no au
+pass loo 0
+______________________________________
+r4
+
+conf t
+router rip 
+ver 2
+net 34.0.0.0
+net 45.0.0.0
+no au
+pass s4/0
+red bgp 2 met 15
+
+
+______________________________________
+
+r8
+conf t
+router ospf 100
+net 78.0.0.0 255.0.0.0 a 0
+net 68.0.0.0 255.0.0.0 a 0
+net 18.0.0.0 255.0.0.0 a 0
+pass s4/0
+red bgp 4 su
+
+_______________________________________
+r7
+conf t
+router ospf 100
+net 78.0.0.0 255.0.0.0 a 0
+net 67.0.0.0 255.0.0.0 a 0
+net 7.0.0.0 255.0.0.0 a 0
+pass loo 0
+
+____________________________________
+r6
+conf t
+router ospf 100
+net 67.0.0.0 255.0.0.0 a 0
+net 68.0.0.0 255.0.0.0 a 0
+net 56.0.0.0 255.0.0.0 a 0
+pass s4/0
+red bgp 4 sub
